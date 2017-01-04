@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>io chat</title>
+	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  	<style>
+  		body{
+  			margin-top:30px;
+  		}
+  	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row" >
+			<div class="col-md-4">
+				<div class="well">
+					<h3>online users</h3>
+					<ul class="list-group" id="users"></ul>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div class="chat" id="chat"></div>
+				<form id="messageForm">
+					<div class="form-group">
+						<label>Enter message</label>
+						<textarea class="form-control" id="message"></textarea>
+						<br />
+						<input type="submit" class="btn btn-primary" value="send message">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(function(){
+			var socket = io.connect()
+			var $messageForm = $('#messageForm')
+			var $message = $('#message')
+			var $chat = $('#chat')
+
+			$messageForm.submit(function(e){
+				e.preventDefault()
+				socket.emit('send message', $message.val())
+				$message.val('')
+			})
+
+			socket.on('new message', function(data){
+				$chat.append(`<div class="well"><strong>${data.soc}</strong> ${data.msg}</div>`)
+			})
+
+			socket.on('disconnect', function(){
+				alert('o servidor foi abaixo')
+			})
+		})
+	</script>
+</body>
+</html>
