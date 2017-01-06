@@ -1,5 +1,3 @@
-"use strict";
-
 var express = require('express')
 var app = express()
 var server = require('http').createServer(app)
@@ -13,7 +11,7 @@ server.listen(3000, function(){
 })
 
 app.get('/', function(req, res){
-	res.sendFile(__dirname+'/index.html')
+	res.sendFile(`${__dirname}/index.html`)
 })
 
 io.sockets.on('connection', function(socket){
