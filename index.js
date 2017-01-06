@@ -6,7 +6,7 @@ var io = require('socket.io').listen(server)
 var users = []
 var connections = []
 
-server.listen(3000, function(){
+server.listen(process.env.PORT || 3000, function(){
 	console.log('server listening on port 3000')
 })
 
