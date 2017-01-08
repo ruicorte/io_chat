@@ -89,7 +89,7 @@
 			})
 
 			socket.on('new message', function(data){
-				$chat.append(`<div class="well"><strong>${data.user}</strong> ${data.msg}</div>`)
+				$chat.append(`<div class="well"><strong>{${data.user} ${data.time.getHours()}:${data.time.getMinutes())}]</strong> ${data.msg}</div>`)
 			})
 
 			socket.on('disconnect', function(){

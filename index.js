@@ -29,7 +29,7 @@ io.sockets.on('connection', function(socket){
 
 	// send message
 	socket.on('send message', function(data){
-		io.sockets.emit('new message',{msg:data,user:socket.username})
+		io.sockets.emit('new message',{msg:data,user:socket.username,time:new Date()})
 	})
 	
 	// new user
